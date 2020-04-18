@@ -9,6 +9,7 @@ version = '0.1'
 init = "Welcome, user! You're using now the MasterPyDebugger!"
 
 class MasterDebugger():
+
     def __init__(self):
         """
         The default format of debugging message is defined, so!
@@ -16,19 +17,22 @@ class MasterDebugger():
         self.LEVELSTRENGTH = [1, 2, 3]
         self.LEVELS = ['INFO', 'WARNING', 'ERROR']
         self.DEFAULTFORMAT = '{}: [{}] {}'
-        return None
+    
     def getLevels(self):
-        return self.LEVELS, self.LEVELSTRENGTH
+        return (self.LEVELS, self.LEVELSTRENGTH)
+    
     def setNewLevel(self, newlevelname:str, levelstrength:int):
-        if (levelstrength > 3):
+        if levelstrength > 3:
             try:
                 self.LEVELS.append(newlevelname)
                 self.LEVELSTRENGTH.append(levelstrength)
             except Exception as e:
                 print(e)
+        elif 1 <= levelstrength <= 3:
+            raise ValueError(f'The level strength "{levelstrength}" has been already set')
         else:
-            print(f'You cannot use "{levelstrength}" level strength')
-            sys.exit()
+            raise ValueError("Level strength values cannot be negative!")
+    
     def debug(self, msg, path_filename=None, formatation='{}: [{}] {}', level='INFO', method='console'):
         """
         Obviously, there are several arguments here! The most of them are already defined. And here, you can, finally, debug your app!
